@@ -1,0 +1,32 @@
+.brand {
+  height: 100px;
+  width: 100px;
+  background-color: green;
+  color: white;
+}
+.buttons {
+  height: 100px;
+  width: 100px;
+  background-color: rgb(9, 0, 128);
+  color: white;
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.butun {
+  height: 100px;
+  width: 100px;
+  background-color: rgb(9, 0, 128);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-bar {
+  display: flex;
+}
+html,
+body {
+  margin: 0;
+}
