@@ -2,23 +2,44 @@ window.addEventListener('load', () => {
 
 
 
+let vari = document.getElementById('toto');
+console.log(vari)
+console.dir(vari)
+
+
+    //
+
+    function appendFormation(formation){
+        todoDiv = document.createElement('div');
+        h2 = document.createElement('h2');
+        p = document.createElement('p');
+        btnDelete = document.createElement('button');
+        btnDelete.innerHTML="<i class='icon'>delete_sweep</i>";
+        btnedit = document.createElement('button');
+        btnedit.innerHTML="<i class='icon'>create</i>";
+        h2.innerHTML = new Date(formation.startedAt).toLocaleDateString() +" - "+new Date(formation.endedAt).toLocaleDateString() ;
+        p.innerHTML = formation.description;
+        todoDiv.appendChild(h2);
+        todoDiv.appendChild(p);
+        todoDiv.appendChild(btnDelete);
+        todoDiv.appendChild(btnedit);
+
+        document.querySelector('.container').appendChild(todoDiv)
+    }
+
+console.time('data')
     fetch("http://10.10.10.232:8080/").then((httpresponse) => {
         httpresponse.json().then(
             jsondata => {
                 console.log(jsondata)
-                var todo, h2, p;
+                var todo, h2, p,btnDelete;
                 for (let index = 0; index < jsondata.length; index++) {
                      todo = jsondata[index];
-                    todoDiv = document.createElement('div');
-                    h2 = document.createElement('h2');
-                    p = document.createElement('p');
-                    h2.innerHTML = todo.startedAt;
-                    p.innerHTML = todo.startedAt;
-                    todoDiv.appendChild(h2);
-                    todoDiv.appendChild(p);
-                    document.querySelector('.container').appendChild(todoDiv)
-
+                   
+                     appendFormation(todo);
                 }
+                console.timeEnd('data')
+
             }
         ).catch(err => {
             console.error(err);
@@ -67,16 +88,8 @@ window.addEventListener('load', () => {
         }).then((httpresponse) => {
             httpresponse.json().then(
                 jsondata => {
-                    var  h2, p;
-                        todoDiv = document.createElement('div');
-                        h2 = document.createElement('h2');
-                        p = document.createElement('p');
-                        h2.innerHTML = jsondata.startedAt;
-                        p.innerHTML = jsondata.startedAt;
-                        todoDiv.appendChild(h2);
-                        todoDiv.appendChild(p);
-                        document.querySelector('.container').appendChild(todoDiv)
-    
+                    appendFormation(jsondata);
+
                     
                 }
             ).catch(err => {
@@ -118,7 +131,6 @@ window.addEventListener('load', () => {
 
         overlay.addEventListener('click', function () {
             document.querySelector('.container').removeChild(this)
-
         })
         console.log(overlay);
         document.querySelector('.container').appendChild(overlay)

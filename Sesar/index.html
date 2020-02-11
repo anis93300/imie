@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <input type="number" value="5">
+    <input type="text">
+    <button class="crypt">Crypt</button>
+
+    <div class="result">
+
+    </div>
+
+
+    <input type="text" id="adecripter">
+    <button class="deccrypt">DecCrypt</button>
+    <script>
+        document.querySelector('button.crypt').addEventListener('click', () => {
+            let claire = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+            let decalage = document.querySelector('input[type="number"]').value;
+            let cryptechaine = claire.substr(decalage) + claire.substr(0, decalage);
+            let saisie = document.querySelector('input[type="text"]').value;
+            let res = "";
+            for (let index = 0; index < saisie.length; index++) {
+                const lettresaisir = saisie[index];
+                let posClaire = claire.indexOf(lettresaisir);
+                res += cryptechaine[posClaire];
+            }
+            let p = document.createElement('p');
+            p.innerText = "Crypté : "+res;
+            document.querySelector('.result').appendChild(p);
+        })
+
+
+
+        document.querySelector('button.deccrypt').addEventListener('click', () => {
+            let claire = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+            let decalage = document.querySelector('input[type="number"]').value;
+            let cryptechaine = claire.substr(decalage) + claire.substr(0, decalage);
+            let saisie = document.querySelector('#adecripter').value;
+            let res = "";
+            for (let index = 0; index < saisie.length; index++) {
+                const lettresaisir = saisie[index];
+                let posClaire = cryptechaine.indexOf(lettresaisir);
+                res += claire[posClaire];
+            }
+            let p = document.createElement('p');
+            p.innerText = "Decrypté : "+res;
+            document.querySelector('.result').appendChild(p);
+        })
+
+
+
+    </script>
+</body>
+
+</html>

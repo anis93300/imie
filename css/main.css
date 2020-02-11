@@ -26,6 +26,19 @@ body {
           align-items: center;
 }
 
+#test {
+  background-color: #271150;
+}
+
+.encore {
+  background-color: #115042 !important;
+}
+
+button[type="submit"] {
+  background-color: red;
+  color: yellow;
+}
+
 .nav-bar {
   background-color: #506b50;
   border-bottom: 1px solid #9bc9b2;
