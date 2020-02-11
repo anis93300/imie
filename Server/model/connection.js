@@ -14,18 +14,5 @@ const sequelize = new Sequelize('imie', 'root', 'anahooua', {
 
     })
  
-
-  const Formations = sequelize.define('Formations', {
-    // Model attributes are defined here
-    startedAt: {
-      type: DataTypes.DATE
-    
-    },
-    endedAt: {
-      type: DataTypes.DATE
-    }
-  }, {
-    // Other model options go here
-  });
-
-  Formations.sync()
+module.exports = sequelize;
+ 
