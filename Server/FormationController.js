@@ -3,8 +3,6 @@ const router = express.Router();
 const Formations = require('./model/Formations')
 
 router.get('/', (request, response) => {
-
-
     Formations.findAll({}).then(dbFormation => {
         response.json(dbFormation)
     }).catch(err => {
@@ -13,9 +11,13 @@ router.get('/', (request, response) => {
 
 });
 
-router.post((request, response) => {
+router.post('/',(request, response) => {
     //ajout
-    response.send("aaaa");
+    Formations.create(request.body).then(dbFormation => {
+        response.json(dbFormation)
+    }).catch(err => {
+        response.send(err.message);
+    });
 
 
 

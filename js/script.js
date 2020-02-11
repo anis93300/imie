@@ -2,7 +2,7 @@ window.addEventListener('load', () => {
 
 
 
-    fetch("https://jsonplaceholder.typicode.com/posts").then((httpresponse) => {
+    fetch("http://10.10.10.232:8080/").then((httpresponse) => {
         httpresponse.json().then(
             jsondata => {
                 console.log(jsondata)
@@ -12,8 +12,8 @@ window.addEventListener('load', () => {
                     todoDiv = document.createElement('div');
                     h2 = document.createElement('h2');
                     p = document.createElement('p');
-                    h2.innerHTML = todo.title;
-                    p.innerHTML = todo.body;
+                    h2.innerHTML = todo.startedAt;
+                    p.innerHTML = todo.startedAt;
                     todoDiv.appendChild(h2);
                     todoDiv.appendChild(p);
                     document.querySelector('.container').appendChild(todoDiv)
@@ -41,6 +41,54 @@ window.addEventListener('load', () => {
             this.innerHTML = 'toto ';
         }, 2000);
     })
+
+    
+    let buttonAdd = document.getElementById('buttonAdd');
+
+    buttonAdd.addEventListener('click',(e)=>{
+        e.preventDefault();
+       let sa =  document.querySelector('[name=startedAt]').value;
+       let se =  document.querySelector('[name=endedAt]').value;
+       let desc =  document.querySelector('[name=desc]').value;
+       let data = {
+        "startedAt":sa,
+        "endedAt":se,
+        "description":desc
+        }
+
+
+        fetch("http://10.10.10.232:8080/",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json",
+                "DATA-Ayoub":"tototot"
+            },
+            body:JSON.stringify(data)
+        }).then((httpresponse) => {
+            httpresponse.json().then(
+                jsondata => {
+                    var  h2, p;
+                        todoDiv = document.createElement('div');
+                        h2 = document.createElement('h2');
+                        p = document.createElement('p');
+                        h2.innerHTML = jsondata.startedAt;
+                        p.innerHTML = jsondata.startedAt;
+                        todoDiv.appendChild(h2);
+                        todoDiv.appendChild(p);
+                        document.querySelector('.container').appendChild(todoDiv)
+    
+                    
+                }
+            ).catch(err => {
+                console.error(err);
+            })
+        }).catch(err => {
+            console.error(err);
+        })
+    
+       console.log(data)
+    })
+
 
 
 
