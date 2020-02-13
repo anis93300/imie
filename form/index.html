@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+    <script src="./index.js"></script>
+</head>
+
+<body>
+    <div class="formWrapper">
+        <form id="form">
+
+            <div>
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required>
+            </div>
+            <div>
+                <label for="pass">Password</label>
+                <input type="password" name="password" id="pass" required>
+            </div>
+            <div>
+                <label for="cpass">Password Confirmation</label>
+                <input type="password" name="passwordConfirm" id="cpass" required>
+                <button>show</button>
+            </div>
+            <div>
+                <label for="pat">Patern</label>
+                <input type="text" name="pat"  pattern="[0-9]+" maxlength="12" minlength="3" id="pat">
+            </div>
+
+            <div>
+                <input type="button" name="validate" id="validate">
+            </div>
+
+
+
+        </form>
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+.papa {
+  position: relative;
+  height: 400px;
+  width: 100%;
+  background-color: blue;
+}
+
+.enfant {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: skyblue;
+  //transition: top 4s, left 4s, right 4s, bottom 4s;
+}
+@keyframes monanim2 {
+  from {
+    left: 0;
+  }
+  to {
+    left: calc(100% - 50px);
+  }
+}
+
+@keyframes monanim {
+  10% {
+    top: 0;
+    left: 0;
+    transform: rotate(360deg);
+    //background-color: rgb(23, 27, 29);
+  }
+  20% {
+    top: 0;
+    transform: rotate(360deg);
+    left: calc(100% - 50px);
+  }
+  30% {
+    left: calc(100% - 50px);
+    transform: rotate(360deg);
+    background-color: rgb(18, 12, 94);
+  }
+
+  40% {
+    left: calc(100% - 50px);
+    transform: rotate(720deg);
+    background-color: rgb(18, 12, 94);
+  }
+  50% {
+    left: calc(100% - 50px);
+    top: calc(100% - 50px);
+    transform: rotate(720deg);
+    background-color: rgb(161, 56, 170);
+  }
+  60% {
+    top: calc(100% - 50px);
+    transform: rotate(360deg);
+    background-color: rgb(161, 56, 170);
+  }
+  70% {
+      left:0;
+      transform: rotate(360deg);
+      background-color: rgb(161, 56, 170);
+  
+  }
+  80% {
+    left:0;
+    transform: rotate(0deg);
+    background-color: rgb(31, 184, 31);
+  }
+  90% {
+      top: 0;
+      transform: rotate(0deg);
+      background-color: rgb(31, 184, 31);
+  }
+  100%{
+    transform: rotate(360deg);
+    background-color: skyblue;
+  }
+}

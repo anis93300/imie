@@ -35,8 +35,8 @@
   transition: width 2s, left 2s,-webkit-transform 2s;
   transition: width 2s, left 2s,transform 2s;
   transition: width 2s, left 2s,transform 2s, -webkit-transform 2s;
-  -webkit-animation: slidein;
-          animation: slidein;
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
 }
 
 .filsclick {
@@ -47,24 +47,34 @@
 }
 
 @-webkit-keyframes slidein {
-  from {
+  0% {
     margin-left: 100%;
-    width: 300%;
   }
-  to {
+  90% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+  100% {
     margin-left: 0%;
-    width: 100%;
+    width: 80%;
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
   }
 }
 
 @keyframes slidein {
-  from {
+  0% {
     margin-left: 100%;
-    width: 300%;
   }
-  to {
+  90% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+  100% {
     margin-left: 0%;
-    width: 100%;
+    width: 80%;
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
   }
 }
 

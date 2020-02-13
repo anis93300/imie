@@ -1,0 +1,42 @@
+div.formWrapper {
+  min-width: 480px;
+  padding: 10px;
+  background-image: linear-gradient(#e66465, #9198e5);
+  border-radius: 5px;
+  height: 60%;
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 480px;
+    background-color: white;
+    padding: 10px;
+    height: 100%;
+    div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      input {
+        width: 280px;
+        &:valid,&.valid{
+            background-color: yellowgreen;
+        }
+        &:invalid, &.invalid{
+            background-color: rgb(230, 81, 12);
+        }
+      }
+    }
+  }
+}
+body,
+html {
+  height: 100%;
+}
+*{
+    box-sizing: border-box;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}

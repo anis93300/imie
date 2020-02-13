@@ -29,9 +29,14 @@
 
 
     <script>
+        document.querySelector('.fils').addEventListener('mouseenter', function () {
+            this.style.animation= "slidein 5s";
+
+
+        });
         document.querySelector('.fils').addEventListener('click', function () {
-             document.querySelector('.fils').classList.toggle("filsclick");
-           // this.classList.toggle("filsclick");
+            document.querySelector('.fils').classList.toggle("filsclick");
+            // this.classList.toggle("filsclick");
         });
     </script>
 
