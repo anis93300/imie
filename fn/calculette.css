@@ -16,6 +16,8 @@ body {
 }
 
 .calculette {
+  border-radius: 5px;
+  padding: 5px;
   height: 300px;
   width: 200px;
   display: -webkit-box;
@@ -37,6 +39,9 @@ body {
   height: 100%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  padding: 10px;
+  font-size: large;
+  background-color: rgba(184, 102, 143, 0.603);
 }
 
 .calculette .btnszone {
@@ -69,5 +74,9 @@ body {
           justify-content: center;
   height: calc(200px / 4);
   width: calc(200px / 4);
+}
+
+.calculette .btnszone button:hover {
+  background-color: rgba(180, 178, 178, 0.863);
 }
 /*# sourceMappingURL=calculette.css.map */

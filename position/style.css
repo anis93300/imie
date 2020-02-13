@@ -1,0 +1,76 @@
+.parent {
+  position: relative;
+  height: 400px;
+  background-image: url("./3.png");
+  background-size: cover;
+  background-position: center;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.fils {
+  position: absolute;
+  height: 50%;
+  width: 80%;
+  top: 25%;
+  left: 10%;
+  padding: 20px;
+  border: 2px solid #c9c6c6;
+  border-radius: 7px;
+  color: #bebbbb;
+  font-size: 24px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: width 2s, left 2s,-webkit-transform 2s;
+  transition: width 2s, left 2s,-webkit-transform 2s;
+  transition: width 2s, left 2s,transform 2s;
+  transition: width 2s, left 2s,transform 2s, -webkit-transform 2s;
+  -webkit-animation: slidein;
+          animation: slidein;
+}
+
+.filsclick {
+  width: 100%;
+  left: 0;
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+}
+
+@-webkit-keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .fils {
+    font-size: 20px;
+  }
+}
+/*# sourceMappingURL=style.css.map */
