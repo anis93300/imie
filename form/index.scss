@@ -16,24 +16,38 @@ div.formWrapper {
       display: flex;
       justify-content: space-between;
       margin-bottom: 5px;
+      position:relative;
+        button{
+          position: absolute;
+          right: 0;
+        }
       input {
         width: 280px;
-        &:valid,&.valid{
-            background-color: yellowgreen;
+        &:valid,
+        &.valid {
+          background-color: yellowgreen;
         }
-        &:invalid, &.invalid{
-            background-color: rgb(230, 81, 12);
+        &:invalid,
+        &.invalid {
+          background-color: rgb(230, 81, 12);
         }
       }
+
     }
   }
+}
+
+input[type="password"]::after {
+  content: "X";
+  width: 10px;
+  height: 10px;
 }
 body,
 html {
   height: 100%;
 }
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
 body {
   display: flex;

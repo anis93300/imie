@@ -32,6 +32,12 @@ div.formWrapper form div {
       -ms-flex-pack: justify;
           justify-content: space-between;
   margin-bottom: 5px;
+  position: relative;
+}
+
+div.formWrapper form div button {
+  position: absolute;
+  right: 0;
 }
 
 div.formWrapper form div input {
@@ -44,6 +50,12 @@ div.formWrapper form div input:valid, div.formWrapper form div input.valid {
 
 div.formWrapper form div input:invalid, div.formWrapper form div input.invalid {
   background-color: #e6510c;
+}
+
+input[type="password"]::after {
+  content: "X";
+  width: 10px;
+  height: 10px;
 }
 
 body,

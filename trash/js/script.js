@@ -1,10 +1,9 @@
 window.addEventListener('load', () => {
 
 
-
+    
 let vari = document.getElementById('toto');
-console.log(vari)
-console.dir(vari)
+
 
 
     //

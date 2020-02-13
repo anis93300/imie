@@ -23,7 +23,11 @@ window.addEventListener('load', () => {
         if (document.getElementById("messageErr") == null) {
             let divmessage = document.createElement('div');
             divmessage.setAttribute('id', "messageErr")
-            divmessage.innerHTML = "he !!  c'est obligatoir ca !!!! saisie le connard !!!!";
+            if(email.value==""){
+                divmessage.innerHTML = "he !!  c'est obligatoir ca !!!! saisie le connard !!!!";
+            }else{
+                divmessage.innerHTML = "he !!  c'est ça un email valid connard ?";
+            }
             email.parentElement.after(divmessage)
         }
 
@@ -54,6 +58,13 @@ window.addEventListener('load', () => {
         }
     });
 
+    pass.nextElementSibling.addEventListener('click', (e) => {
+        e.preventDefault();
+        pass.type = (pass.type == "text") ? "password" : 'text';
+
+        pass.nextElementSibling.innerHTML = (pass.type == "text") ? "hide" : "show";
+    });
+
 
     cpass.nextElementSibling.addEventListener('click', (e) => {
         e.preventDefault();
@@ -67,7 +78,7 @@ window.addEventListener('load', () => {
 
     console.dir(form);
     console.log(form[1]);
-    form[2].addEventListener('keyup', (event) => {
+    document.getElementById("cpass").addEventListener('keyup', (event) => {
         if (event.target.value == form[1].value) {
             document.getElementById("cpass").classList.remove("invalid");
             document.getElementById("cpass").classList.add("valid");
