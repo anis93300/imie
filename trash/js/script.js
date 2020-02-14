@@ -1,5 +1,5 @@
 var edited = null;
-
+var apiurl = "http://localhost:8080/"
 
 
 window.addEventListener('load', () => {
@@ -7,11 +7,13 @@ window.addEventListener('load', () => {
 
 
     let vari = document.getElementById('toto');
-function clearForm(){
-    document.querySelector('[name=startedAt]').value = "";
-    document.querySelector('[name=endedAt]').value = "";
-    document.querySelector('[name=desc]').value = "";
-}
+
+    function clearForm() {
+        document.querySelector('[name=startedAt]').value = "";
+        document.querySelector('[name=endedAt]').value = "";
+        document.querySelector('[name=desc]').value = "";
+        document.querySelector('[name=location]').value = "";
+    }
 
     function appendFormation(formation) {
         todoDiv = document.createElement('div');
@@ -19,11 +21,12 @@ function clearForm(){
         todoDiv.id = "divData" + formation.id;
         h2 = document.createElement('h2');
         p = document.createElement('p');
+        div= document.createElement('div');
         btnDelete = document.createElement('button');
         btnDelete.innerHTML = "<i class='icon'>delete_sweep</i>";
         btnDelete.addEventListener('click', () => {
             if (confirm("Etes vous sûre ..?????????")) {
-                fetch("http://10.10.10.232:8080/", {
+                fetch(apiurl, {
                     method: "DELETE",
                     headers: {
                         "Content-Type": "application/json"
@@ -44,6 +47,7 @@ function clearForm(){
             }
 
         })
+        
         btnedit = document.createElement('button');
         btnedit.innerHTML = "<i class='icon'>create</i>";
         btnedit.addEventListener('click', () => {
@@ -51,14 +55,17 @@ function clearForm(){
 
             document.querySelector('[name=startedAt]').value = edited.startedAt.split('T')[0];
             document.querySelector('[name=endedAt]').value = edited.endedAt.split('T')[0]
+            document.querySelector('[name=location]').value = edited.location;
             document.querySelector('[name=desc]').value = edited.description;
 
         })
 
-        h2.innerHTML = new Date(formation.startedAt).toLocaleDateString() + " - " + new Date(formation.endedAt).toLocaleDateString();
+        h2.innerHTML = new Date(formation.startedAt).getFullYear() + " - " + new Date(formation.endedAt).getFullYear();
         p.innerHTML = formation.description;
+        div.innerHTML = formation.location;
         todoDiv.appendChild(h2);
         todoDiv.appendChild(p);
+        todoDiv.appendChild(div);
         todoDiv.appendChild(btnDelete);
         todoDiv.appendChild(btnedit);
 
@@ -66,7 +73,7 @@ function clearForm(){
     }
 
     console.time('data')
-    fetch("http://10.10.10.232:8080/").then((httpresponse) => {
+    fetch(apiurl).then((httpresponse) => {
         httpresponse.json().then(
             jsondata => {
                 console.log(jsondata)
@@ -107,17 +114,19 @@ function clearForm(){
         let sa = document.querySelector('[name=startedAt]').value;
         let se = document.querySelector('[name=endedAt]').value;
         let desc = document.querySelector('[name=desc]').value;
+        let loc = document.querySelector('[name=location]').value;
 
 
         if (edited === null) {
             let data = {
                 "startedAt": sa,
                 "endedAt": se,
-                "description": desc
+                "description": desc,
+                "location":loc
             }
 
 
-            fetch("http://10.10.10.232:8080/", {
+            fetch(apiurl, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -128,7 +137,7 @@ function clearForm(){
                 httpresponse.json().then(
                     jsondata => {
                         appendFormation(jsondata);
-           clearForm()
+                        clearForm()
 
                     }
                 ).catch(err => {
@@ -142,10 +151,11 @@ function clearForm(){
             edited.startedAt = sa;
             edited.endedAt = se;
             edited.description = desc;
+            edited.location = loc;
 
 
 
-            fetch("http://10.10.10.232:8080/", {
+            fetch(apiurl, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -156,12 +166,12 @@ function clearForm(){
                 httpresponse.json().then(
                     jsondata => {
                         // appendFormation(jsondata);
-                      let div =   document.querySelector('#divData' + jsondata.id);
-                      div.querySelector('h2').innerHTML = new Date(jsondata.startedAt).toLocaleDateString() + " - " + new Date(jsondata.endedAt).toLocaleDateString();
-                      div.querySelector('p').innerHTML = jsondata.description;
-
-                      clearForm()
-                      edited = null;
+                        let div = document.querySelector('#divData' + jsondata.id);
+                        div.querySelector('h2').innerHTML = new Date(jsondata.startedAt).toLocaleDateString() + " - " + new Date(jsondata.endedAt).toLocaleDateString();
+                        div.querySelector('p').innerHTML = jsondata.description;
+                        div.querySelector('div').innerHTML = jsondata.location;
+                        clearForm()
+                        edited = null;
                     }
                 ).catch(err => {
                     console.error(err);

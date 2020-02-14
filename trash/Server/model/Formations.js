@@ -13,6 +13,9 @@ const Formations = sequelize.define('Formations', {
     },
     description: {
       type: DataTypes.STRING
+    },
+    location: {
+        type: DataTypes.STRING
     }
   }, {
     // Other model options go here
