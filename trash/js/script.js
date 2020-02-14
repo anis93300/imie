@@ -1,22 +1,61 @@
+var edited = null;
+
+
+
 window.addEventListener('load', () => {
 
 
-    
-let vari = document.getElementById('toto');
 
+    let vari = document.getElementById('toto');
+function clearForm(){
+    document.querySelector('[name=startedAt]').value = "";
+    document.querySelector('[name=endedAt]').value = "";
+    document.querySelector('[name=desc]').value = "";
+}
 
-
-    //
-
-    function appendFormation(formation){
+    function appendFormation(formation) {
         todoDiv = document.createElement('div');
+        //todoDiv.setAttribute('id',formation.id);
+        todoDiv.id = "divData" + formation.id;
         h2 = document.createElement('h2');
         p = document.createElement('p');
         btnDelete = document.createElement('button');
-        btnDelete.innerHTML="<i class='icon'>delete_sweep</i>";
+        btnDelete.innerHTML = "<i class='icon'>delete_sweep</i>";
+        btnDelete.addEventListener('click', () => {
+            if (confirm("Etes vous sûre ..?????????")) {
+                fetch("http://10.10.10.232:8080/", {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(formation)
+                }).then((httpresponse) => {
+                    httpresponse.json().then(
+                        jsondata => {
+                            document.querySelector('#divData' + jsondata.id).remove();
+
+                        }
+                    ).catch(err => {
+                        console.error(err);
+                    })
+                }).catch(err => {
+                    console.error(err);
+                })
+            }
+
+        })
         btnedit = document.createElement('button');
-        btnedit.innerHTML="<i class='icon'>create</i>";
-        h2.innerHTML = new Date(formation.startedAt).toLocaleDateString() +" - "+new Date(formation.endedAt).toLocaleDateString() ;
+        btnedit.innerHTML = "<i class='icon'>create</i>";
+        btnedit.addEventListener('click', () => {
+            edited = formation;
+
+            document.querySelector('[name=startedAt]').value = edited.startedAt.split('T')[0];
+            document.querySelector('[name=endedAt]').value = edited.endedAt.split('T')[0]
+            document.querySelector('[name=desc]').value = edited.description;
+
+        })
+
+        h2.innerHTML = new Date(formation.startedAt).toLocaleDateString() + " - " + new Date(formation.endedAt).toLocaleDateString();
         p.innerHTML = formation.description;
         todoDiv.appendChild(h2);
         todoDiv.appendChild(p);
@@ -26,19 +65,17 @@ let vari = document.getElementById('toto');
         document.querySelector('.container').appendChild(todoDiv)
     }
 
-console.time('data')
+    console.time('data')
     fetch("http://10.10.10.232:8080/").then((httpresponse) => {
         httpresponse.json().then(
             jsondata => {
                 console.log(jsondata)
-                var todo, h2, p,btnDelete;
+                var todo, h2, p, btnDelete;
                 for (let index = 0; index < jsondata.length; index++) {
-                     todo = jsondata[index];
-                   
-                     appendFormation(todo);
+                    todo = jsondata[index];
+                    appendFormation(todo);
                 }
                 console.timeEnd('data')
-
             }
         ).catch(err => {
             console.error(err);
@@ -62,43 +99,78 @@ console.time('data')
         }, 2000);
     })
 
-    
+
     let buttonAdd = document.getElementById('buttonAdd');
 
-    buttonAdd.addEventListener('click',(e)=>{
+    buttonAdd.addEventListener('click', (e) => {
         e.preventDefault();
-       let sa =  document.querySelector('[name=startedAt]').value;
-       let se =  document.querySelector('[name=endedAt]').value;
-       let desc =  document.querySelector('[name=desc]').value;
-       let data = {
-        "startedAt":sa,
-        "endedAt":se,
-        "description":desc
-        }
+        let sa = document.querySelector('[name=startedAt]').value;
+        let se = document.querySelector('[name=endedAt]').value;
+        let desc = document.querySelector('[name=desc]').value;
 
 
-        fetch("http://10.10.10.232:8080/",{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json",
-                "DATA-Ayoub":"tototot"
-            },
-            body:JSON.stringify(data)
-        }).then((httpresponse) => {
-            httpresponse.json().then(
-                jsondata => {
-                    appendFormation(jsondata);
+        if (edited === null) {
+            let data = {
+                "startedAt": sa,
+                "endedAt": se,
+                "description": desc
+            }
 
-                    
-                }
-            ).catch(err => {
+
+            fetch("http://10.10.10.232:8080/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "DATA-Ayoub": "tototot"
+                },
+                body: JSON.stringify(data)
+            }).then((httpresponse) => {
+                httpresponse.json().then(
+                    jsondata => {
+                        appendFormation(jsondata);
+           clearForm()
+
+                    }
+                ).catch(err => {
+                    console.error(err);
+                })
+            }).catch(err => {
                 console.error(err);
             })
-        }).catch(err => {
-            console.error(err);
-        })
-    
-       console.log(data)
+        } else {
+
+            edited.startedAt = sa;
+            edited.endedAt = se;
+            edited.description = desc;
+
+
+
+            fetch("http://10.10.10.232:8080/", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "DATA-Ayoub": "tototot"
+                },
+                body: JSON.stringify(edited)
+            }).then((httpresponse) => {
+                httpresponse.json().then(
+                    jsondata => {
+                        // appendFormation(jsondata);
+                      let div =   document.querySelector('#divData' + jsondata.id);
+                      div.querySelector('h2').innerHTML = new Date(jsondata.startedAt).toLocaleDateString() + " - " + new Date(jsondata.endedAt).toLocaleDateString();
+                      div.querySelector('p').innerHTML = jsondata.description;
+
+                      clearForm()
+                      edited = null;
+                    }
+                ).catch(err => {
+                    console.error(err);
+                })
+            }).catch(err => {
+                console.error(err);
+            })
+        }
+
     })
 
 

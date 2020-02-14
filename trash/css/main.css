@@ -105,7 +105,7 @@ button[type="submit"] {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: url(/css/icon.woff2) format("woff2");
+  src: url(/trash/css/icon.woff2) format("woff2");
 }
 
 .icon {

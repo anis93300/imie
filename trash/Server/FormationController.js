@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const Formations = require('./model/Formations')
+const { Op } = require('sequelize');
 
 router.get('/', (request, response) => {
     Formations.findAll({}).then(dbFormation => {
@@ -11,7 +12,7 @@ router.get('/', (request, response) => {
 
 });
 
-router.post('/',(request, response) => {
+router.post('/', (request, response) => {
     //ajout
     Formations.create(request.body).then(dbFormation => {
         response.json(dbFormation)
@@ -23,16 +24,35 @@ router.post('/',(request, response) => {
 
 });
 
-router.put((request, response) => {
-    response.send("aaaa");
-
+router.put('/', (request, response) => {
+    Formations.update( request.body,{
+        where: {
+            id: {
+                [Op.eq]: request.body.id
+            }
+        }
+    }).then(dbFormation => {
+        response.json(request.body)
+    }).catch(err => {
+        response.send(err.message);
+    });
 
 
 });
 
-router.delete((request, response) => {
-    response.send("delete");
+router.delete("/",(request, response) => {
 
+    Formations.destroy({
+        where: {
+            id: {
+                [Op.eq]: request.body.id
+            }
+        }
+    }).then(dbFormation => {
+        response.json(request.body)
+    }).catch(err => {
+        response.send(err.message);
+    });
 
 
 });
